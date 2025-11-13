@@ -1,0 +1,21 @@
+name: Daily API Tests
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install requests PyJWT
+      - run: python test_api.py
+        env:
+          ADMIN_USER_ID: ${{ secrets.ADMIN_USER_ID }}
+          ADMIN_USER_EMAIL: ${{ secrets.ADMIN_USER_EMAIL }}
+          SECRETKEY: ${{ secrets.SECRETKEY }}
