@@ -1,4 +1,4 @@
-name: Daily API Tests
+name: Daily Tests of the API
 
 on:
   schedule:
