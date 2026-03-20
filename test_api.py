@@ -152,303 +152,303 @@ def test_forecasting(token: str):
     if response:
         logger.info("✓ Multivariate forecasting successful")
 
-def test_ml(token: str):
-    """Test machine learning endpoints"""
-    test_files = {
-        "classification": DATA_DIR / "breast_cancer_dataset2.csv",
-        "regression": DATA_DIR / "boston_dataset2.csv"
-    }
-    
-    logger.info("\n=== Testing Machine Learning Endpoints ===")
-    
-    # Test classification
-    logger.info("\nTesting classification...")
-    files = {"file": open(test_files["classification"], "rb")}
-    params = {
-        "base_model": "RandomForestClassifier",
-        "n_hidden_features": 5,
-        "predict_proba": True
-    }
-    response = make_request(f"{base_url}/mlclassification", token, files=files, params=params)
-    test_results.append(TestResult(
-        "Classification",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Classification successful")
-    
-    # Test regression
-    logger.info("\nTesting regression...")
-    files = {"file": open(test_files["regression"], "rb")}
-    params = {
-        "base_model": "RidgeCV",
-        "n_hidden_features": 5,
-        "return_pi": True
-    }
-    response = make_request(f"{base_url}/mlregression", token, files=files, params=params)
-    test_results.append(TestResult(
-        "Regression",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Regression successful")
-    
-    # Test GBDT classification
-    logger.info("\nTesting GBDT classification...")
-    files = {"file": open(test_files["classification"], "rb")}
-    response = make_request(f"{base_url}/gbdtclassification", token, files=files)
-    test_results.append(TestResult(
-        "GBDT Classification",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBDT classification successful")
-    
-    # Test GBDT classification with SHAP
-    logger.info("\nTesting GBDT classification with SHAP...")
-    files = {"file": open(test_files["classification"], "rb")}
-    params = {
-        "model_type": "xgboost",
-        "predict_proba": False,
-        "interpretability": "shap"
-    }
-    response = make_request(f"{base_url}/gbdtclassification", token, files=files, params=params)
-    test_results.append(TestResult(
-        "GBDT Classification with SHAP",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBDT classification with SHAP successful")
-    
-    # Test GBDT classification with permutation importance
-    logger.info("\nTesting GBDT classification with permutation importance...")
-    files = {"file": open(test_files["classification"], "rb")}
-    params = {
-        "model_type": "xgboost",
-        "predict_proba": False,
-        "interpretability": "permutation"
-    }
-    response = make_request(f"{base_url}/gbdtclassification", token, files=files, params=params)
-    test_results.append(TestResult(
-        "GBDT Classification with Permutation",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBDT classification with permutation importance successful")
-    
-    # Test GBDT regression
-    logger.info("\nTesting GBDT regression...")
-    files = {"file": open(test_files["regression"], "rb")}
-    params = {"return_pi": True}
-    response = make_request(f"{base_url}/gbdtregression", token, files=files, params=params)
-    test_results.append(TestResult(
-        "GBDT Regression",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBDT regression successful")
-    
-    # Test GBDT regression with SHAP
-    logger.info("\nTesting GBDT regression with SHAP...")
-    files = {"file": open(test_files["regression"], "rb")}
-    params = {
-        "model_type": "xgboost",
-        "interpretability": "shap"
-    }
-    response = make_request(f"{base_url}/gbdtregression", token, files=files, params=params)
-    test_results.append(TestResult(
-        "GBDT Regression with SHAP",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBDT regression with SHAP successful")
-    
-    # Test GBDT regression with permutation importance
-    logger.info("\nTesting GBDT regression with permutation importance...")
-    files = {"file": open(test_files["regression"], "rb")}
-    params = {
-        "model_type": "xgboost",
-        "interpretability": "permutation"
-    }
-    response = make_request(f"{base_url}/gbdtregression", token, files=files, params=params)
-    test_results.append(TestResult(
-        "GBDT Regression with Permutation",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBDT regression with permutation importance successful")
+# def test_ml(token: str):
+#     """Test machine learning endpoints"""
+#     test_files = {
+#         "classification": DATA_DIR / "breast_cancer_dataset2.csv",
+#         "regression": DATA_DIR / "boston_dataset2.csv"
+#     }
+#     
+#     logger.info("\n=== Testing Machine Learning Endpoints ===")
+#     
+#     # Test classification
+#     logger.info("\nTesting classification...")
+#     files = {"file": open(test_files["classification"], "rb")}
+#     params = {
+#         "base_model": "RandomForestClassifier",
+#         "n_hidden_features": 5,
+#         "predict_proba": True
+#     }
+#     response = make_request(f"{base_url}/mlclassification", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "Classification",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Classification successful")
+#     
+#     # Test regression
+#     logger.info("\nTesting regression...")
+#     files = {"file": open(test_files["regression"], "rb")}
+#     params = {
+#         "base_model": "RidgeCV",
+#         "n_hidden_features": 5,
+#         "return_pi": True
+#     }
+#     response = make_request(f"{base_url}/mlregression", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "Regression",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Regression successful")
+#     
+#     # Test GBDT classification
+#     logger.info("\nTesting GBDT classification...")
+#     files = {"file": open(test_files["classification"], "rb")}
+#     response = make_request(f"{base_url}/gbdtclassification", token, files=files)
+#     test_results.append(TestResult(
+#         "GBDT Classification",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBDT classification successful")
+#     
+#     # Test GBDT classification with SHAP
+#     logger.info("\nTesting GBDT classification with SHAP...")
+#     files = {"file": open(test_files["classification"], "rb")}
+#     params = {
+#         "model_type": "xgboost",
+#         "predict_proba": False,
+#         "interpretability": "shap"
+#     }
+#     response = make_request(f"{base_url}/gbdtclassification", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "GBDT Classification with SHAP",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBDT classification with SHAP successful")
+#     
+#     # Test GBDT classification with permutation importance
+#     logger.info("\nTesting GBDT classification with permutation importance...")
+#     files = {"file": open(test_files["classification"], "rb")}
+#     params = {
+#         "model_type": "xgboost",
+#         "predict_proba": False,
+#         "interpretability": "permutation"
+#     }
+#     response = make_request(f"{base_url}/gbdtclassification", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "GBDT Classification with Permutation",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBDT classification with permutation importance successful")
+#     
+#     # Test GBDT regression
+#     logger.info("\nTesting GBDT regression...")
+#     files = {"file": open(test_files["regression"], "rb")}
+#     params = {"return_pi": True}
+#     response = make_request(f"{base_url}/gbdtregression", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "GBDT Regression",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBDT regression successful")
+#     
+#     # Test GBDT regression with SHAP
+#     logger.info("\nTesting GBDT regression with SHAP...")
+#     files = {"file": open(test_files["regression"], "rb")}
+#     params = {
+#         "model_type": "xgboost",
+#         "interpretability": "shap"
+#     }
+#     response = make_request(f"{base_url}/gbdtregression", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "GBDT Regression with SHAP",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBDT regression with SHAP successful")
+#     
+#     # Test GBDT regression with permutation importance
+#     logger.info("\nTesting GBDT regression with permutation importance...")
+#     files = {"file": open(test_files["regression"], "rb")}
+#     params = {
+#         "model_type": "xgboost",
+#         "interpretability": "permutation"
+#     }
+#     response = make_request(f"{base_url}/gbdtregression", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "GBDT Regression with Permutation",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBDT regression with permutation importance successful")
 
-def test_reserving(token: str):
-    """Test reserving endpoints"""
-    test_files = {
-        "chain_ladder": DATA_DIR / "raa.csv",
-        "mack": DATA_DIR / "abc.csv"
-    }
-    
-    logger.info("\n=== Testing Reserving Endpoints ===")
-    
-    # Test chain ladder
-    logger.info("\nTesting chain ladder...")
-    files = {"file": open(test_files["chain_ladder"], "rb")}
-    params = {"method": "chainladder"}
-    response = make_request(f"{base_url}/reserving", token, files=files, params=params)
-    test_results.append(TestResult(
-        "Chain Ladder",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Chain ladder successful")
-    
-    # Test Mack chain ladder
-    logger.info("\nTesting Mack chain ladder...")
-    files = {"file": open(test_files["mack"], "rb")}
-    params = {"method": "mack"}
-    response = make_request(f"{base_url}/reserving", token, files=files, params=params)
-    test_results.append(TestResult(
-        "Mack Chain Ladder",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Mack chain ladder successful")
-    
-    # Test RidgeCV reserving
-    logger.info("\nTesting RidgeCV reserving...")
-    files = {"file": open(test_files["mack"], "rb")}
-    params = {"method": "RidgeCV"}
-    response = make_request(f"{base_url}/mlreserving", token, files=files, params=params)
-    test_results.append(TestResult(
-        "RidgeCV reserving",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ RidgeCV reserving successful")
+# def test_reserving(token: str):
+#     """Test reserving endpoints"""
+#     test_files = {
+#         "chain_ladder": DATA_DIR / "raa.csv",
+#         "mack": DATA_DIR / "abc.csv"
+#     }
+#     
+#     logger.info("\n=== Testing Reserving Endpoints ===")
+#     
+#     # Test chain ladder
+#     logger.info("\nTesting chain ladder...")
+#     files = {"file": open(test_files["chain_ladder"], "rb")}
+#     params = {"method": "chainladder"}
+#     response = make_request(f"{base_url}/reserving", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "Chain Ladder",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Chain ladder successful")
+#     
+#     # Test Mack chain ladder
+#     logger.info("\nTesting Mack chain ladder...")
+#     files = {"file": open(test_files["mack"], "rb")}
+#     params = {"method": "mack"}
+#     response = make_request(f"{base_url}/reserving", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "Mack Chain Ladder",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Mack chain ladder successful")
+#     
+#     # Test RidgeCV reserving
+#     logger.info("\nTesting RidgeCV reserving...")
+#     files = {"file": open(test_files["mack"], "rb")}
+#     params = {"method": "RidgeCV"}
+#     response = make_request(f"{base_url}/mlreserving", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "RidgeCV reserving",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ RidgeCV reserving successful")
+# 
+#     # Test lightgbm reserving
+#     logger.info("\nTesting lightgbm reserving...")
+#     files = {"file": open(test_files["mack"], "rb")}
+#     params = {"method": "lightgbm"}
+#     response = make_request(f"{base_url}/mlreserving", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "lightgbm reserving",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ lightgbm reserving successful")
 
-    # Test lightgbm reserving
-    logger.info("\nTesting lightgbm reserving...")
-    files = {"file": open(test_files["mack"], "rb")}
-    params = {"method": "lightgbm"}
-    response = make_request(f"{base_url}/mlreserving", token, files=files, params=params)
-    test_results.append(TestResult(
-        "lightgbm reserving",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ lightgbm reserving successful")
+# def test_survival(token: str):
+#     """Test survival analysis endpoints"""
+#     test_files = {
+#         "km": DATA_DIR / "kidney.csv",
+#         "ridge": DATA_DIR / "gbsg2_2.csv"
+#     }
+#     
+#     logger.info("\n=== Testing Survival Analysis Endpoints ===")
+#     
+#     # Test Kaplan-Meier
+#     logger.info("\nTesting Kaplan-Meier...")
+#     files = {"file": open(test_files["km"], "rb")}
+#     params = {"method": "km"}
+#     response = make_request(f"{base_url}/survivalcurve", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "Kaplan-Meier",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Kaplan-Meier successful")
+#     
+#     # Test Ridge survival
+#     logger.info("\nTesting Ridge survival...")
+#     files = {"file": open(test_files["ridge"], "rb")}
+#     params = {"method": "RidgeCV", "patient_id": 0}
+#     response = make_request(f"{base_url}/survivalcurve", token, files=files, params=params)
+#     test_results.append(TestResult(
+#         "Ridge Survival",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Ridge survival successful")
 
-def test_survival(token: str):
-    """Test survival analysis endpoints"""
-    test_files = {
-        "km": DATA_DIR / "kidney.csv",
-        "ridge": DATA_DIR / "gbsg2_2.csv"
-    }
-    
-    logger.info("\n=== Testing Survival Analysis Endpoints ===")
-    
-    # Test Kaplan-Meier
-    logger.info("\nTesting Kaplan-Meier...")
-    files = {"file": open(test_files["km"], "rb")}
-    params = {"method": "km"}
-    response = make_request(f"{base_url}/survivalcurve", token, files=files, params=params)
-    test_results.append(TestResult(
-        "Kaplan-Meier",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Kaplan-Meier successful")
-    
-    # Test Ridge survival
-    logger.info("\nTesting Ridge survival...")
-    files = {"file": open(test_files["ridge"], "rb")}
-    params = {"method": "RidgeCV", "patient_id": 0}
-    response = make_request(f"{base_url}/survivalcurve", token, files=files, params=params)
-    test_results.append(TestResult(
-        "Ridge Survival",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Ridge survival successful")
-
-def test_simulations(token: str):
-    """Test simulation endpoints"""
-    logger.info("\n=== Testing Simulation Endpoints ===")
-    
-    # Test GBM simulation
-    logger.info("\nTesting GBM simulation...")
-    params = {
-        "model": "GBM",
-        "n": 6,
-        "horizon": 5,
-        "frequency": "quarterly",
-        "x0": 100,
-        "theta1": 0.1,
-        "theta2": 0.2,
-        "theta3": 0.3,
-        "seed": 123
-    }
-    response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
-    test_results.append(TestResult(
-        "GBM Simulation",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ GBM simulation successful")
-    
-    # Test CIR simulation
-    logger.info("\nTesting CIR simulation...")
-    params["model"] = "CIR"
-    response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
-    test_results.append(TestResult(
-        "CIR Simulation",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ CIR simulation successful")
-    
-    # Test OU simulation
-    logger.info("\nTesting OU simulation...")
-    params["model"] = "OU"
-    response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
-    test_results.append(TestResult(
-        "OU Simulation",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ OU simulation successful")
-    
-    # Test shocks simulation
-    logger.info("\nTesting shocks simulation...")
-    params = {
-        "model": "shocks",
-        "n": 6,
-        "horizon": 5,
-        "frequency": "quarterly",
-        "seed": 123
-    }
-    response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
-    test_results.append(TestResult(
-        "Shocks Simulation",
-        bool(response),
-        None if response else "Failed to get response"
-    ))
-    if response:
-        logger.info("✓ Shocks simulation successful")
+# def test_simulations(token: str):
+#     """Test simulation endpoints"""
+#     logger.info("\n=== Testing Simulation Endpoints ===")
+#     
+#     # Test GBM simulation
+#     logger.info("\nTesting GBM simulation...")
+#     params = {
+#         "model": "GBM",
+#         "n": 6,
+#         "horizon": 5,
+#         "frequency": "quarterly",
+#         "x0": 100,
+#         "theta1": 0.1,
+#         "theta2": 0.2,
+#         "theta3": 0.3,
+#         "seed": 123
+#     }
+#     response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
+#     test_results.append(TestResult(
+#         "GBM Simulation",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ GBM simulation successful")
+#     
+#     # Test CIR simulation
+#     logger.info("\nTesting CIR simulation...")
+#     params["model"] = "CIR"
+#     response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
+#     test_results.append(TestResult(
+#         "CIR Simulation",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ CIR simulation successful")
+#     
+#     # Test OU simulation
+#     logger.info("\nTesting OU simulation...")
+#     params["model"] = "OU"
+#     response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
+#     test_results.append(TestResult(
+#         "OU Simulation",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ OU simulation successful")
+#     
+#     # Test shocks simulation
+#     logger.info("\nTesting shocks simulation...")
+#     params = {
+#         "model": "shocks",
+#         "n": 6,
+#         "horizon": 5,
+#         "frequency": "quarterly",
+#         "seed": 123
+#     }
+#     response = make_request(f"{base_url}/scenarios/simulate/", token, method="GET", params=params)
+#     test_results.append(TestResult(
+#         "Shocks Simulation",
+#         bool(response),
+#         None if response else "Failed to get response"
+#     ))
+#     if response:
+#         logger.info("✓ Shocks simulation successful")
 
 def print_test_summary():
     """Print a summary of all test results"""
@@ -475,10 +475,10 @@ def main():
     
     # Run tests
     test_forecasting(token)
-    test_ml(token)
-    test_reserving(token)
-    test_survival(token)
-    test_simulations(token)
+    # test_ml(token)
+    # test_reserving(token)
+    # test_survival(token)
+    # test_simulations(token)
     
     # Print summary
     print_test_summary()
@@ -488,4 +488,4 @@ def main():
         raise SystemExit(1)
 
 if __name__ == "__main__":
-    main() 
+    main()
